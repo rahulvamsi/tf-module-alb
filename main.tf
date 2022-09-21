@@ -105,6 +105,23 @@ resource "aws_lb" "private" {
   }
 }
 
+resource "aws_lb_listener" "private" {
+  load_balancer_arn = aws_lb.private.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Fixed response content"
+      status_code  = "503"
+    }
+  }
+}
+
+
 resource "aws_security_group" "private" {
   name        = "${var.env}-private-alb"
   description = "${var.env}-private-alb"
