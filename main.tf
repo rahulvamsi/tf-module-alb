@@ -23,6 +23,7 @@ resource "aws_lb_target_group" "public" {
     timeout             = 4
     port                = 80
     unhealthy_threshold = 2
+    path                = "/nginx_status"
   }
 }
 
